@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script defer src="golf.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body onload="loadMe()">
+<div id="container" class="container">
+    <div class="zip-code"></div>
+
+    <div id="num-players-div"></div>
+
+    <div id="done-btn2-div"></div>
+    <div id="playerNamesPage"></div>
+    <div id="done-btn3-div"></div>
+    <!--<label for="numb-players">How many players</label> <input id="numb-players" onchange="buildCard(this.value)">-->
+    <!--<button onclick="buildCard()">Start</button>-->
+</div>
+<div class="card" onkeyup="addPlayerScore()">
+    <div class="players-column"></div>
+    <div class="lower-card">
+        <div class="headerColumn"></div>
+        <div class="completeScoreColumn">
+            <div class="scoreColumn"></div>
+            <div class="totalScore"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
