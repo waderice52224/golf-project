@@ -6,8 +6,48 @@ var numPlayers;
 
 
 
-var pos_obj = {latitude: 40, longitude: 111, radius: 100};
+var pos;
 
+// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//     infoWindow.setPosition(pos);
+//     infoWindow.setContent(browserHasGeolocation ?
+//         'Error: The Geolocation service failed.' :
+//         'Error: Your browser doesn\'t support geolocation.');
+//     infoWindow.open(map);
+// }
+
+var map, infoWindow;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 6
+    });
+    infoWindow = new google.maps.InfoWindow;
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                radius: 100
+            };
+
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            // infoWindow.open(map);
+            // map.setCenter(pos);
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+        // } else {
+        //     // Browser doesn't support Geolocation
+        //     handleLocationError(false, infoWindow, map.getCenter());
+        // }
+        loadMe()
+    }
+}
 // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //     infoWindow.setPosition(pos);
 //     infoWindow.setContent(browserHasGeolocation ?
@@ -18,10 +58,8 @@ var pos_obj = {latitude: 40, longitude: 111, radius: 100};
 
 
 
-
-
 function loadMe() {
-    $.post("https://golf-courses-api.herokuapp.com/courses", pos_obj, function (data, status) {
+    $.post("https://golf-courses-api.herokuapp.com/courses", pos, function (data, status) {
         closeCourses = JSON.parse(data);
         $(".container").append("<select id='courseselect' onchange='getCourse(this.value)'></select>");
         $(".container").append("<select id='teeselect'></select>");
@@ -32,7 +70,7 @@ function loadMe() {
         }
     });
 }
-
+initMap();
 function getCourse(courseid) {
     $("#teeselect").html("");
     $.get("https://golf-courses-api.herokuapp.com/courses/" + courseid, function (data) {
@@ -149,11 +187,26 @@ function addPlayerScore() {
     }
 }
 function holePar1() {
-        $("#header").append("<div class='lower-header'></div>")
+        $("#header").append("<div class='lower-header'></div>");
         $(".lower-header").append("Par " + currentCourse.course.holes[0].tee_boxes[0].par);
         holePar();
 }
 function holePar() {
+    var h = 0;
+    while (h <= numholes.length - parseInt(1)){
+        // document.getElementById("lower-header"+h).innerHTML = "";
+        $("#lower-header"+ parseInt(h)).replaceWith("Par "+ currentCourse.course.holes[h].tee_boxes[0].par);
+        h++;
+    }
+    $("#header"+ h).replaceWith("<div id='header"+ h +"' class='header-class'>Total</div>");
+}
+function distance1() {
+
+    $(".lower-header").append( currentCourse.course.holes[0].tee_boxes[0].//the directory to distance
+     );
+    distance();
+}
+function distance() {
     var h = 0;
     while (h <= numholes.length - parseInt(1)){
         // document.getElementById("lower-header"+h).innerHTML = "";
