@@ -187,5 +187,14 @@ function distance1() {
         h++;
     }
     $(".totals-div-container").append("<div class='totals-div'><div class='total-yardage'>Total Yardage: "+ placeHold +"</div></div>");
+    calTotalPar();
 }
-
+var totalPar = 0;
+function calTotalPar() {
+    var u = 0;
+    while (u < numholes.length) {
+        totalPar = parseInt(totalPar + parseInt(currentCourse.course.holes[u].tee_boxes[0].par));
+        u++;
+    }
+$(".totals-div-container").append("<div class='total-par'>Total Par "+ totalPar +"</div>");
+}
