@@ -33,7 +33,7 @@ function initMap() {
                 longitude: position.coords.longitude,
                 radius: 100
             };
-
+            loadMe();
             // infoWindow.setPosition(pos);
             // infoWindow.setContent('Location found.');
             // infoWindow.open(map);
@@ -45,7 +45,7 @@ function initMap() {
         //     // Browser doesn't support Geolocation
         //     handleLocationError(false, infoWindow, map.getCenter());
         // }
-        loadMe()
+
     }
 }
 // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -146,6 +146,7 @@ function fillCard() {
         $("head").append("<style> .totalScore{max-width: 71px;}</style>");
     }
     holePar1();
+    distance1();
 
 }
 function deleteButton(theThing) {
@@ -194,7 +195,7 @@ function holePar1() {
 function holePar() {
     var h = 0;
     while (h <= numholes.length - parseInt(1)){
-        // document.getElementById("lower-header"+h).innerHTML = "";
+        $("#header"+ h).append("<div class='lower-header"+ h +"'></div>");
         $("#lower-header"+ parseInt(h)).replaceWith("Par "+ currentCourse.course.holes[h].tee_boxes[0].par);
         h++;
     }
@@ -202,16 +203,17 @@ function holePar() {
 }
 function distance1() {
 
-    $(".lower-header").append( currentCourse.course.holes[0].tee_boxes[0].//the directory to distance
-     );
+    $(".lower-header").append("<div>"+ currentCourse.course.holes[0].tee_boxes[0].yards+" Yards</div>");
     distance();
 }
 function distance() {
-    var h = 0;
+    var h = 1;
     while (h <= numholes.length - parseInt(1)){
-        // document.getElementById("lower-header"+h).innerHTML = "";
-        $("#lower-header"+ parseInt(h)).replaceWith("Par "+ currentCourse.course.holes[h].tee_boxes[0].par);
+
+        $("#lower-header"+ h).append("<div>"+ currentCourse.course.holes[h].tee_boxes[0].yards +"</div>");
         h++;
     }
-    $("#header"+ h).replaceWith("<div id='header"+ h +"' class='header-class'>Total</div>");
 }
+// "<div>"+
+// + " Yards</div>"
+// lower-header"+h
