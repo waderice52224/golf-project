@@ -1,25 +1,13 @@
-var closeCourses;
-var currentCourse;
-
-var numholes;
-var numPlayers;
-
-//finish yards, add total yards
+//finished yards, add total yards
 //add total par - or +
 
 
+var closeCourses;
+var currentCourse;
+var numholes;
+var numPlayers;
 var pos;
-
-// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//     infoWindow.setPosition(pos);
-//     infoWindow.setContent(browserHasGeolocation ?
-//         'Error: The Geolocation service failed.' :
-//         'Error: Your browser doesn\'t support geolocation.');
-//     infoWindow.open(map);
-// }
-
 var map, infoWindow;
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
@@ -36,29 +24,12 @@ function initMap() {
                 radius: 48.3
             };
             loadMe();
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
-            // infoWindow.open(map);
-            // map.setCenter(pos);
         }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
         });
-        // } else {
-        //     // Browser doesn't support Geolocation
-        //     handleLocationError(false, infoWindow, map.getCenter());
-        // }
 
     }
 }
-// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//     infoWindow.setPosition(pos);
-//     infoWindow.setContent(browserHasGeolocation ?
-//         'Error: The Geolocation service failed.' :
-//         'Error: Your browser doesn\'t support geolocation.');
-//     infoWindow.open(map);
-// }
-
-
 
 function loadMe() {
     $.post("https://golf-courses-api.herokuapp.com/courses", pos, function (data, status) {
@@ -88,14 +59,14 @@ function howManyPlayersPage() {
     $( "#courseselect" ).remove();
     $( "#teeselect" ).remove();
     $( "#done-btn" ).remove();
-    $("#num-players-div").append("<input id='num-players'><label for='num-players'>How many players</label>")
+    $("#num-players-div").append("<label for='num-players'>How many players</label><input id='num-players'>")
     $("#done-btn2-div").append("<button id='done-btn2' onclick='playerNames()'>Done</button>")
 }
 function playerNames() {
     numPlayers = document.getElementById("num-players").value;
     var x = 1;
     while (x <= numPlayers){
-        $("#playerNamesPage").append("<input id='playerName"+ x +"'>");
+        $("#playerNamesPage").append("<label id='lable-for-player-name"+ x +"' for='playerName"+ x +"'>Player "+ x +"</label><input id='playerName"+ x +"'>");
         x++;
     }
     $("#done-btn3-div").append("<button id='done-btn3' onclick='buildCard()'>Done</button>");
@@ -138,6 +109,7 @@ function fillCard() {
     var p = 1;
     while (p <= numPlayers){
         $("#playerName"+ p).remove();
+        $("#lable-for-player-name"+ p).remove();
         p++;
     }
     $("#done-btn3-div").remove();
@@ -203,17 +175,17 @@ function holePar() {
     }
     $("#header"+ h).replaceWith("<div id='header"+ h +"' class='header-class'>Total</div>");
 }
+var placeHold = 0;
 function distance1() {
-
     $(".lower-header").append("<div>"+ currentCourse.course.holes[0].tee_boxes[0].yards+" Yards</div>");
-    distance();
-}
-function distance() {
+    placeHold = placeHold + currentCourse.course.holes[0].tee_boxes[0].yards;
     var h = 1;
     while (h <= numholes.length - parseInt(1)){
 
         $(".lower-header"+ h).append("<div>"+ currentCourse.course.holes[h].tee_boxes[0].yards +" Yards</div>");
+        placeHold = placeHold + currentCourse.course.holes[h].tee_boxes[0].yards;
         h++;
     }
+    $(".totals-div-container").append("<div class='totals-div'><div class='total-yardage'>Total Yardage: "+ placeHold +"</div></div>");
 }
 

@@ -1,3 +1,13 @@
+
+#map {
+    height: 0px;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 .column {
     /*border: 1px solid #dddddd;*/
     width: 100%;
@@ -83,12 +93,16 @@
     width: 100%;
 
 }
-#map {
-    height: 0px;
+.totals-div{
+    border: solid 2px;
+    width: auto;
 }
-/* Optional: Makes the sample page fill the window. */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+.total-yardage{
+    border: solid 1px;
+}
+.over-all-par{
+    border: solid 1px;
+}
+.players-over-all-par{
+    border: solid 1px;
 }
