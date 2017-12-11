@@ -4,6 +4,8 @@ var currentCourse;
 var numholes;
 var numPlayers;
 
+//finish yards, add total yards
+//add total par - or +
 
 
 var pos;
@@ -31,7 +33,7 @@ function initMap() {
             pos = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
-                radius: 100
+                radius: 48.3
             };
             loadMe();
             // infoWindow.setPosition(pos);
@@ -210,10 +212,8 @@ function distance() {
     var h = 1;
     while (h <= numholes.length - parseInt(1)){
 
-        $("#lower-header"+ h).append("<div>"+ currentCourse.course.holes[h].tee_boxes[0].yards +"</div>");
+        $(".lower-header"+ h).append("<div>"+ currentCourse.course.holes[h].tee_boxes[0].yards +" Yards</div>");
         h++;
     }
 }
-// "<div>"+
-// + " Yards</div>"
-// lower-header"+h
+
