@@ -92,6 +92,7 @@ function buildCard(mytee) {
         $(".totalScore").append("<div id='total"+ (Number(z) +1) +"' class='scoreboxes'></div>");
         z++;
     }
+    $("head").append("<style>#container {margin: 50px auto}</style>");
     fillCard();
 }
 function fillCard() {
@@ -218,9 +219,12 @@ function bottomBoxNames() {
 }
 function playerTotalScoreBottomBox() {
     var i = 1;
+    var playerTotalJustForThisFunction;
     $(".players-over-all-par").append("<div class='bottom-total'></div>");
     while (i <= numPlayers){
-        $(".bottom-total").replaceWith("<div>"+parseInt(['playerTotalScore' + i]) - courseTotalPar +"</div");
+        playerTotalJustForThisFunction = $("#total"+ i).html();
+        var boi = parseInt(playerTotalJustForThisFunction - courseTotalPar);
+        $(".bottom-total").replaceWith(boi);
         i++;
     }
 }
