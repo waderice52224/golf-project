@@ -70,6 +70,8 @@ html, body {
 .card{
     display: flex;
     justify-content: flex-start;
+    background-color: #2B3819;
+    color: white;
 }
 .players-column{
     width: 80px;
@@ -133,14 +135,23 @@ html, body {
 .players-over-all-par{
     border: solid 1px;
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
 }
 .totals-div-container{
     width: 50%;
+    margin: auto;
 }
 .bottom-total{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.player-names-bottom-box{
+    width: 50%;
+}
+.total-par{
+    width: 50%;
+}
+.bottom-total-par-sec{
+    display: flex;
 }

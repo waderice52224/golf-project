@@ -99,7 +99,7 @@ function fillCard() {
     for(var p = 1; p <= numPlayers; p++){
         $(".playerColumn").append("<input id='pl"+ p +"' class='playerNames>");
         for(var h = 1; h <= numholes.length; h++){
-            $("#column" + h).append("<div id='player"+ p +"hole"+ h +"' type'text' class='holeinput'><input class='inputThatSucks' value='0'></div> ");
+            $("#column" + h).append("<div id='player"+ p +"hole"+ h +"' type='text' class='holeinput'><input type='number' class='inputThatSucks' value='0'></div> ");
         }
     }
     var q = 1;
@@ -196,13 +196,14 @@ function distance1() {
 }
 var totalPar = 0;
 var courseTotalPar;
+
 function calTotalPar() {
     var u = 0;
     while (u < numholes.length) {
         totalPar = parseInt(totalPar + parseInt(currentCourse.course.holes[u].tee_boxes[0].par));
         u++;
     }
-$(".totals-div-container").append("<div class='total-par'>Total Par "+ totalPar +"</div>");
+$(".totals-div-container").append("<div class='bottom-total-par-sec'><div class='total-par'>Total Par: "+ totalPar +"</div><div class='easyest-div-of-the-day'>Final Par</div> </div>");
     window.courseTotalPar = totalPar;
 }
 var test3;
@@ -220,11 +221,13 @@ function bottomBoxNames() {
 function playerTotalScoreBottomBox() {
     var i = 1;
     var playerTotalJustForThisFunction;
+    $(".bottom-total").remove();
     $(".players-over-all-par").append("<div class='bottom-total'></div>");
+
     while (i <= numPlayers){
         playerTotalJustForThisFunction = $("#total"+ i).html();
         var boi = parseInt(playerTotalJustForThisFunction - courseTotalPar);
-        $(".bottom-total").replaceWith(boi);
+        $(".bottom-total").append("<div id='container-for-player"+ i +"-over-all-par'>"+ boi +"</div>");
         i++;
     }
 }
