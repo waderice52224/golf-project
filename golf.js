@@ -34,8 +34,9 @@ function initMap() {
 function loadMe() {
     $.post("https://golf-courses-api.herokuapp.com/courses", pos, function (data, status) {
         closeCourses = JSON.parse(data);
-        $(".container").append("<select id='courseselect' onchange='getCourse(this.value)'></select>");
-        $(".container").append("<select id='teeselect'></select>");
+        $(".kill-me").remove();
+        $(".container").append("<select id='courseselect' onchange='getCourse(this.value)'><option><--Select One--></select>");
+        $(".container").append("<select id='teeselect'></option></select>");
         $(".container").append("<button id='done-btn' onclick='howManyPlayersPage()'>Done</button>");
         for (var p in closeCourses.courses){
             console.log(closeCourses.courses[p].name);
@@ -99,7 +100,18 @@ function fillCard() {
     for(var p = 1; p <= numPlayers; p++){
         $(".playerColumn").append("<input id='pl"+ p +"' class='playerNames>");
         for(var h = 1; h <= numholes.length; h++){
-            $("#column" + h).append("<div id='player"+ p +"hole"+ h +"' type='text' class='holeinput'><input type='number' class='inputThatSucks' value='0'></div> ");
+            if(h === numholes.length) {
+                if (numholes.length > 10) {
+                    $("#column" + h).append("<div onchange='bottomBox()' id='player" + p + "hole" + h + "' type='text' class='holeinput'><input  type='number' class='inputThatSucks' value='0'></div> ");
+                }
+                else {
+                    $("#column" + h).append("<div onchange='bottomBox()' id='player" + p + "hole" + h + "' type='text' class='holeinput'><input type='number' class='inputThatSucks' value='0'></div> ");
+                }
+            }
+            else {
+
+                $("#column" + h).append("<div id='player" + p + "hole" + h + "' type='text' class='holeinput'><input type='number' class='inputThatSucks' value='0'></div> ");
+            }
         }
     }
     var q = 1;
@@ -120,6 +132,7 @@ function fillCard() {
     else {
         $("head").append("<style> .totalScore{max-width: 71px;}</style>");
     }
+    $(".container").remove();
     holePar1();
     distance1();
 
@@ -154,7 +167,7 @@ function addPlayerScore() {
     while  (t <= numPlayers){
         document.getElementById("total"+t).innerHTML = "";
         r = 1;
-        while (r < numholes.length){
+        while (r <= numholes.length){
             placeHold = parseInt(placeHold) + parseInt($("#player"+ t +"hole"+ r)[0].children[0].value);
             r++;
         }
@@ -163,12 +176,12 @@ function addPlayerScore() {
         placeHold = 0;
         t++;
     }
-    playerTotalScoreBottomBox();
+    // playerTotalScoreBottomBox();
 }
 function holePar1() {
-        $("#header").append("<div class='lower-header'></div>");
-        $(".lower-header").append("Par " + currentCourse.course.holes[0].tee_boxes[0].par);
-        holePar();
+    $("#header").append("<div class='lower-header'></div>");
+    $(".lower-header").append("Par " + currentCourse.course.holes[0].tee_boxes[0].par);
+    holePar();
 }
 function holePar() {
     var h = 0;
@@ -192,7 +205,8 @@ function distance1() {
     }
     $(".totals-div-container").append("<div class='totals-div'><div class='total-yardage'>Total Yardage: "+ placeHold +"</div></div>");
     calTotalPar();
-    bottomBoxNames();
+    // bottomBoxNames();
+    // bottomBox();
 }
 var totalPar = 0;
 var courseTotalPar;
@@ -203,31 +217,48 @@ function calTotalPar() {
         totalPar = parseInt(totalPar + parseInt(currentCourse.course.holes[u].tee_boxes[0].par));
         u++;
     }
-$(".totals-div-container").append("<div class='bottom-total-par-sec'><div class='total-par'>Total Par: "+ totalPar +"</div><div class='easyest-div-of-the-day'>Final Par</div> </div>");
+    $(".totals-div-container").append("<div class='bottom-total-par-sec'><div class='total-par'>Total Par: "+ totalPar +"</div><div class='easyest-div-of-the-day'>Final Par</div> </div>");
     window.courseTotalPar = totalPar;
 }
 var test3;
-function bottomBoxNames() {
-    var t = 1;
-    $(".totals-div-container").append("<div class='players-over-all-par'>");
-    $(".players-over-all-par").append("<div class='player-names-bottom-box'></div>");
-    while (t <= numPlayers) {
-        test3 = $("#player" + t).html();
-        $(".player-names-bottom-box").append("<div>"+ test3 +"</div>");
-        t++;
-    }
 
-}
-function playerTotalScoreBottomBox() {
-    var i = 1;
-    var playerTotalJustForThisFunction;
-    $(".bottom-total").remove();
-    $(".players-over-all-par").append("<div class='bottom-total'></div>");
+function bottomBox() {
+$(".players-over-all-par").remove();
+    bottomBoxNames();
+    function bottomBoxNames() {
+        var t = 1;
+        $(".totals-div-container").append("<div class='players-over-all-par'>");
+        $(".players-over-all-par").append("<div class='player-names-bottom-box'></div>");
+        while (t <= numPlayers) {
+            test3 = $("#player" + t).html();
+            $(".player-names-bottom-box").append("<div>" + test3 + "</div>");
+            t++;
+        }
 
-    while (i <= numPlayers){
-        playerTotalJustForThisFunction = $("#total"+ i).html();
-        var boi = parseInt(playerTotalJustForThisFunction - courseTotalPar);
-        $(".bottom-total").append("<div id='container-for-player"+ i +"-over-all-par'>"+ boi +"</div>");
-        i++;
+    }
+    addPlayerScore();
+playerTotalScoreBottomBox();
+    function playerTotalScoreBottomBox() {
+
+        //clear .players-over-all-par
+        var i = 1;
+        var playerTotalJustForThisFunction;
+        $(".bottom-total").remove();
+        $(".players-over-all-par").append("<div class='bottom-total'></div>");
+
+        while (i <= numPlayers) {
+            playerTotalJustForThisFunction = $("#total" + i).html();
+            var boi = parseInt(playerTotalJustForThisFunction - courseTotalPar);
+            $(".bottom-total").append("<div class='container-for-BLNT'><div id='container-for-player" + i + "-over-all-par'>" + boi + "</div><div id='betterLuckNextTime"+ i +"'></div></div><div");
+            if (playerTotalJustForThisFunction < courseTotalPar){
+                $("#betterLuckNextTime"+ i).append(" Most Excellent");
+            }
+            else {
+                $("#betterLuckNextTime"+ i).append(" Maybe this is not your thing");
+
+            }
+            i++;
+        }
     }
 }
+//function name is bottom box

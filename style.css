@@ -22,18 +22,21 @@ html, body {
     justify-content: center;
     flex-direction: column;
     width: 50%;
+    padding: 30px;
 }
 #courseselect{
     width: 50%;
-    margin: 0 auto;
+    margin: 2px auto;
+
 }
 #teeselect{
     width: 50%;
-    margin: 0 auto;
+    margin: 2px auto;
 }
 #done-btn{
     width: 10%;
-    margin: 0 auto;
+    margin: 2px auto;
+
 }
 .column {
     /*border: 1px solid #dddddd;*/
@@ -72,6 +75,7 @@ html, body {
     justify-content: flex-start;
     background-color: #2B3819;
     color: white;
+    margin-top: 50px;
 }
 .players-column{
     width: 80px;
@@ -153,5 +157,9 @@ html, body {
     width: 50%;
 }
 .bottom-total-par-sec{
+    display: flex;
+    border: solid 1px;
+}
+.container-for-BLNT{
     display: flex;
 }
