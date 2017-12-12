@@ -105,4 +105,10 @@ html, body {
 }
 .players-over-all-par{
     border: solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.totals-div-container{
+    width: 50%;
 }

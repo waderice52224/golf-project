@@ -149,6 +149,7 @@ function addPlayerScore() {
     var r =1;
     var placeHold = 0;
     parseInt(placeHold);
+    var playerTotalScore;
     while  (t <= numPlayers){
         document.getElementById("total"+t).innerHTML = "";
         r = 1;
@@ -157,9 +158,11 @@ function addPlayerScore() {
             r++;
         }
         $("#total"+ t).append(parseInt(placeHold));
+        window['playerTotalScore' + t] = placeHold;
         placeHold = 0;
         t++;
     }
+    playerTotalScoreBottomBox();
 }
 function holePar1() {
         $("#header").append("<div class='lower-header'></div>");
@@ -188,8 +191,10 @@ function distance1() {
     }
     $(".totals-div-container").append("<div class='totals-div'><div class='total-yardage'>Total Yardage: "+ placeHold +"</div></div>");
     calTotalPar();
+    bottomBoxNames();
 }
 var totalPar = 0;
+var courseTotalPar;
 function calTotalPar() {
     var u = 0;
     while (u < numholes.length) {
@@ -197,4 +202,25 @@ function calTotalPar() {
         u++;
     }
 $(".totals-div-container").append("<div class='total-par'>Total Par "+ totalPar +"</div>");
+    window.courseTotalPar = totalPar;
+}
+var test3;
+function bottomBoxNames() {
+    var t = 1;
+    $(".totals-div-container").append("<div class='players-over-all-par'>");
+    $(".players-over-all-par").append("<div class='player-names-bottom-box'></div>");
+    while (t <= numPlayers) {
+        test3 = $("#player" + t).html();
+        $(".player-names-bottom-box").append("<div>"+ test3 +"</div>");
+        t++;
+    }
+
+}
+function playerTotalScoreBottomBox() {
+    var i = 1;
+    $(".players-over-all-par").append("<div class='bottom-total'></div>");
+    while (i <= numPlayers){
+        $(".bottom-total").replaceWith("<div>"+parseInt(['playerTotalScore' + i]) - courseTotalPar +"</div");
+        i++;
+    }
 }
